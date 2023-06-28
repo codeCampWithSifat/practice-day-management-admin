@@ -7,6 +7,7 @@ import { IPaginationOptions } from '../../../interface/pagination';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { SortOrder } from 'mongoose';
 import { adminSearchableFields } from './admin.constant';
+import { IGenericResponse } from '../../../interface/common';
 
 const getSingleAdmin = async (id: string): Promise<IAdminUser | null> => {
   const result = await Admin.findOne({ id });
@@ -41,7 +42,7 @@ const updateAdmin = async (
 const getAllAdmins = async (
   paginationOptions: IPaginationOptions,
   filters: IAdminFilters
-) => {
+): Promise<IGenericResponse<IAdminUser[]>> => {
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);
 
